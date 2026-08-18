@@ -3,7 +3,7 @@ import { getMapping } from './mappings';
 import { getSearchRedirect } from './search';
 
 export default {
-	async fetch(request): Promise<Response> {
+	fetch(request): Response {
 		const { pathname, search, searchParams } = new URL(request.url);
 
 		if (pathname === '/favicon.ico') {
