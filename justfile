@@ -6,3 +6,5 @@ start:
     pnpm run start
 cf-typegen:
     pnpm run cf-typegen
+format:
+    pnpm run format
