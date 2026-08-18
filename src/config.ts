@@ -1,5 +1,6 @@
 export default {
 	'symphonysimper.com': ['', 'portfolio', 'i', 'my', 'me'],
+	'symphonysimper.com/color': ['color', 'c'],
 
 	// Bank
 	'unifiedportal-mem.epfindia.gov.in/memberinterface': ['epfo'],
