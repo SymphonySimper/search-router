@@ -1,64 +1,33 @@
-export function notFoundPage(pathname: string): Response {
+export function errorPage(status: number, message: string): Response {
 	const html = `
-	<!DOCTYPE html>
-	<body>
-		<p>404</p>
-		<h1>No mapping found for ${pathname}.</h1>
+<!doctype html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body {
+			margin: 0;
+			padding: 1rem;
+			box-sizing: border-box;
+			height: 100vh;
+			display: grid;
+			place-items: center;
+			text-align: center;
+			color: #666;
+			font: 0.875rem monospace;
+		}
 
-		<style>
-			* {
-				margin: 0;
-				box-sizing: border-box;
-			}
-
-			html,
+		@media (prefers-color-scheme: dark) {
 			body {
-				width: 100%;
-				height: 100%;
+				background: #111;
+				color: #aaa;
 			}
+		}
+	</style>
+</head>
+<body>${message}</body>`;
 
-			body {
-				--bg: #fafafa;
-				--p: #b0b0b0;
-				--h1: #3a3a3a;
-
-				padding: 1rem;
-				overflow: hidden;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				justify-content: center;
-				gap: 2px;
-				text-align: center;
-				background-color: var(--bg);
-
-				p {
-					font-family: monospace;
-					font-size: 4rem;
-					font-weight: 800;
-					color: var(--p);
-				}
-
-				h1 {
-					font-family: sans-serif;
-					font-size: 1rem;
-					font-weight: 400;
-					color: var(--h1);
-				}
-			}
-
-			@media (prefers-color-scheme: dark) {
-				body {
-					--bg: #111;
-					--p: #666;
-					--h1: #d0d0d0;
-				}
-			}
-		</style>
-	</body>
-`;
 	return new Response(html, {
-		status: 404,
+		status,
 		headers: {
 			'content-type': 'text/html;charset=UTF-8',
 		},

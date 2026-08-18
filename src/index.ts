@@ -1,4 +1,4 @@
-import { notFoundPage } from './html';
+import { errorPage } from './html';
 import { getMapping } from './mappings';
 import { getSearchRedirect } from './search';
 
@@ -22,6 +22,6 @@ export default {
 			return Response.redirect(`${url}${search}`, 302);
 		}
 
-		return notFoundPage(pathname);
+		return errorPage(404, `No mapping found for ${pathname}.`);
 	},
 } satisfies ExportedHandler<Env>;
