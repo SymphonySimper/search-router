@@ -13,6 +13,14 @@ export const CONFIG = {
 			url: 'search.brave.com',
 			search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}`,
 		},
+		a: {
+			url: 'www.amazon.in',
+			search: `/s?k=${SEARCH_TERMS_PLACEHOLDER}`,
+		},
+		f: {
+			url: 'www.flipkart.com',
+			search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}`,
+		},
 		ng: {
 			url: 'noogle.dev',
 			search: `/q?term=${SEARCH_TERMS_PLACEHOLDER}`,
