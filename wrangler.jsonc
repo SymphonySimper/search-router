@@ -9,10 +9,10 @@
 	"compatibility_date": "2026-08-18",
 	"observability": {
 		"enabled": true,
-		"head_sampling_rate": 0.01
+		"head_sampling_rate": 0.01,
 	},
 	"upload_source_maps": true,
-	"minify": true
+	"minify": true,
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

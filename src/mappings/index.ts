@@ -33,14 +33,8 @@ function getMapping(pathname: string): string | undefined {
 	return href ? `${href}${slug}` : undefined;
 }
 
-export function getMappingResult(
-	pathname: string,
-	search = '',
-	cache: 'short' | 'none' = search === '' ? 'short' : 'none',
-): RouteResult {
+export function getMappingResult(pathname: string, search = '', cache: 'short' | 'none' = search === '' ? 'short' : 'none'): RouteResult {
 	const url = getMapping(pathname);
 
-	return url
-		? { redirect: `${url}${search}`, cache }
-		: { status: 404, message: `No mapping found for ${pathname}.` };
+	return url ? { redirect: `${url}${search}`, cache } : { status: 404, message: `No mapping found for ${pathname}.` };
 }

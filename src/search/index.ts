@@ -64,9 +64,7 @@ export function getSearchResult(url: URL): RouteResult | undefined {
 	}
 
 	const queryPath = queryIndex === -1 ? '' : pathname.slice(queryIndex + 1);
-	const query = decodeQuery(
-		searchPathname === FORM_SEARCH_PATHNAME ? queryPath.replaceAll('+', ' ') : queryPath,
-	).trim();
+	const query = decodeQuery(searchPathname === FORM_SEARCH_PATHNAME ? queryPath.replaceAll('+', ' ') : queryPath).trim();
 
 	if (query.startsWith('@')) {
 		const mapping = query.slice(1);
