@@ -14,9 +14,8 @@ Keep changes small, direct, and configuration-driven. Do not add abstractions, d
 ## Behavior Invariants
 
 - Mapping keys are case-insensitive. Preserve destination and dynamic-slug casing.
-- Exact mappings win. Otherwise, ordered-subsequence matches are ranked by shortest key, then alphabetically.
+- Mappings are exact, explicit, case-insensitive aliases. Developers must add every supported alias to `src/mappings/config.ts`.
 - Only the first pathname segment selects a mapping; append the remaining pathname unchanged as its slug.
-- Hyphenated mapping keys automatically gain a space variant. Avoid redundant aliases when subsequence matching preserves the intended destination.
 - `/s`, `/search`, `/q`, and `/query` are equivalent search endpoints. Their entire pathname suffix is the query; without a suffix, use the `q` query parameter for form-encoded clients.
 - Search queries beginning with `@` strictly resolve everything after it through mappings, preserve destination query parameters, and return a mapping error when unresolved; other `@` characters are ordinary search text.
 - Bangs are case-insensitive tokens anywhere in the query. The first valid bang selects the engine; remove all valid bangs and preserve invalid ones as search text.
@@ -27,7 +26,7 @@ Keep changes small, direct, and configuration-driven. Do not add abstractions, d
 
 - Direct search engines use `{ url, search }`; site searches use `{ site }` and reuse the default engine.
 - Build search templates with `SEARCH_TERMS_PLACEHOLDER`; do not duplicate the placeholder literal.
-- Prefer one canonical mapping key. Verify short subsequences before adding explicit short aliases.
+- Keep mapping aliases explicit; do not generate variants from configured keys.
 
 ## Verification and Git
 
