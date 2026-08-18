@@ -7,7 +7,8 @@ const SEARCH_PATHNAMES = new Set(['/s', '/search', '/q', '/query']);
 
 type ResolvedSearchEngine = {
 	homepage: string;
-	search: string;
+	beforeTerms: string;
+	afterTerms: string;
 	prefix: string;
 };
 
@@ -15,11 +16,19 @@ function create() {
 	const defaultEngine = CONFIG.engines[CONFIG.default];
 	const defaultSearch = withProtocol(`${defaultEngine.url}${defaultEngine.search}`);
 	const entries = Object.entries(CONFIG.engines).map(([key, engine]) => {
-		if ('site' in engine) {
-			return [key, { homepage: withProtocol(engine.site), search: defaultSearch, prefix: `site:${engine.site} ` }] as const;
-		}
+		const homepage = withProtocol('site' in engine ? engine.site : engine.url);
+		const search = 'site' in engine ? defaultSearch : withProtocol(`${engine.url}${engine.search}`);
+		const termsIndex = search.indexOf(SEARCH_TERMS_PLACEHOLDER);
 
-		return [key, { homepage: withProtocol(engine.url), search: withProtocol(`${engine.url}${engine.search}`), prefix: '' }] as const;
+		return [
+			key,
+			{
+				homepage,
+				beforeTerms: search.slice(0, termsIndex),
+				afterTerms: search.slice(termsIndex + SEARCH_TERMS_PLACEHOLDER.length),
+				prefix: 'site' in engine ? `site:${engine.site} ` : '',
+			},
+		] as const;
 	});
 
 	return new Map<string, ResolvedSearchEngine>(entries);
@@ -41,11 +50,11 @@ function createSearchUrl(engine: ResolvedSearchEngine, query: string): string {
 		return engine.homepage;
 	}
 
-	return engine.search.replace(SEARCH_TERMS_PLACEHOLDER, encodeURIComponent(`${engine.prefix}${query}`));
+	return `${engine.beforeTerms}${encodeURIComponent(`${engine.prefix}${query}`)}${engine.afterTerms}`;
 }
 
 export function getSearchResult(url: URL): RouteResult | undefined {
-	const { pathname, search, searchParams } = url;
+	const pathname = url.pathname;
 	const queryIndex = pathname.indexOf('/', 1);
 	const searchPathname = queryIndex === -1 ? pathname : pathname.slice(0, queryIndex);
 
@@ -53,24 +62,31 @@ export function getSearchResult(url: URL): RouteResult | undefined {
 		return undefined;
 	}
 
-	const query = (queryIndex === -1 ? searchParams.get('q') : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
+	const query = (queryIndex === -1 ? url.searchParams.get('q') : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
 
 	if (query.startsWith('@')) {
 		const mapping = query.slice(1);
 		const mappingSearchIndex = mapping.indexOf('?');
 		const mappingPath = mappingSearchIndex === -1 ? mapping : mapping.slice(0, mappingSearchIndex);
 		const mappingPathname = `/${mappingPath.split('/').map(encodeURIComponent).join('/')}`;
-		const mappingSearch = mappingSearchIndex === -1 ? (queryIndex === -1 ? '' : search) : mapping.slice(mappingSearchIndex);
+		const mappingSearch = mappingSearchIndex === -1 ? (queryIndex === -1 ? '' : url.search) : mapping.slice(mappingSearchIndex);
 
 		return getMappingResult(mappingPathname, mappingSearch);
 	}
 
-	const tokens = query === '' ? [] : query.split(/\s+/);
+	if (query === '') {
+		return { redirect: DEFAULT_SEARCH_ENGINE.homepage };
+	}
+
+	if (!query.includes('!')) {
+		return { redirect: createSearchUrl(DEFAULT_SEARCH_ENGINE, query) };
+	}
+
 	let engine = DEFAULT_SEARCH_ENGINE;
 	let hasBang = false;
 	const searchTerms: Array<string> = [];
 
-	for (const token of tokens) {
+	for (const token of query.split(/\s+/)) {
 		const bang = token.startsWith('!') ? token.slice(1).toLowerCase() : '';
 
 		const bangEngine = SEARCH_ENGINES.get(bang);
