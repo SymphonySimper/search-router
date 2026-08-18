@@ -1,5 +1,5 @@
 import { notFoundPage } from './html';
-import { mappings } from './mapping';
+import { mappings } from './mappings';
 
 export default {
 	async fetch(request): Promise<Response> {
