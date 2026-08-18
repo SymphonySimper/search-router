@@ -8,7 +8,7 @@ function create() {
 			const value = withProtocol(href);
 			const allKeys = keys.flatMap((key) => (key.includes('-') ? [key, key.replaceAll('-', ' ')] : key));
 
-			return allKeys.map((key) => [`/${encodeURIComponent(key)}`, value] as const);
+			return allKeys.map((key) => [`/${encodeURIComponent(key.toLowerCase())}`, value] as const);
 		})
 		.sort(([a], [b]) => a.length - b.length || a.localeCompare(b));
 
@@ -41,7 +41,7 @@ function isSubsequence(sequence: string, value: string): boolean {
 
 export function getMapping(pathname: string): string | undefined {
 	const slugIndex = pathname.indexOf('/', 1);
-	const mappingPathname = slugIndex === -1 ? pathname : pathname.slice(0, slugIndex);
+	const mappingPathname = (slugIndex === -1 ? pathname : pathname.slice(0, slugIndex)).toLowerCase();
 	const slug = slugIndex === -1 ? '' : pathname.slice(slugIndex);
 	const exact = mappings.get(mappingPathname);
 
