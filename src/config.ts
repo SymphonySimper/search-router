@@ -3,25 +3,25 @@ export default {
 
 	// Bank
 	'unifiedportal-mem.epfindia.gov.in/memberinterface': ['epfo', 'pf'],
-	'passbook.epfindia.gov.in/MemberPassBook/login': ['epfo-passbook', 'pf-passbook'],
+	'passbook.epfindia.gov.in/MemberPassBook/login': ['epfo-passbook'],
 
 	// Bills
 	'login.airfiber.co.in/customer_portal': ['airfiber'],
 	'pli.indiapost.gov.in': ['indian-post-insurance', 'pli'],
 
 	// Dev
-	'github.com/SymphonySimper/.dotfiles': ['dotfiles', 'dots', 'nix-config', 'config'],
-	'github.com/SymphonySimper': ['github', 'git', 'gh'],
+	'github.com/SymphonySimper/.dotfiles': ['dotfiles', 'dots', 'nix-config'],
+	'github.com/SymphonySimper': ['github'],
 	'fonts.google.com': ['google-fonts'],
 	'leetcode.com': ['leetcode', 'lt'],
-	'regex101.com': ['regex101', 'regex'],
+	'regex101.com': ['regex101'],
 	'svelte.dev': ['svelte', 'sv'],
-	'svelte-changelog.vercel.app': ['svelte-changelog', 'sv-log'],
-	'tailwindcss.com/docs/installation': ['tailwindcss', 'tailwind'],
+	'svelte-changelog.vercel.app': ['svelte-changelog'],
+	'tailwindcss.com/docs/installation': ['tailwindcss'],
 
 	// Email
 	'mail.google.com/mail/u/0': ['gmail', 'gm'],
-	'mail.google.com/mail/u/1': ['gmail-1', 'gm1'],
+	'mail.google.com/mail/u/1': ['gmail-1'],
 	'mail.google.com/mail/u/2': ['gmail-2', 'gm2'],
 
 	// Misc
@@ -36,13 +36,13 @@ export default {
 	// Social Media
 	'discord.com/channels/@me': ['discord'],
 	'www.reddit.com': ['reddit', 'rt'],
-	'web.whatsapp.com': ['whatsapp', 'wa'],
+	'web.whatsapp.com': ['whatsapp'],
 	'youtube.com': ['youtube', 'yt'],
 
 	// Utility
-	'excalidraw.com': ['excalidraw', 'excali', 'draw'],
+	'excalidraw.com': ['excalidraw'],
 	'www.keybr.com': ['keybr'],
-	'monkeytype.com': ['monkeytype', 'monkey'],
+	'monkeytype.com': ['monkeytype'],
 	'squoosh.app': ['squoosh', 'image-compress'],
-	'www.virustotal.com': ['virustotal', 'virus'],
+	'www.virustotal.com': ['virustotal'],
 } satisfies Record<string, Array<string>>;

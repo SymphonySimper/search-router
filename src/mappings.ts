@@ -24,6 +24,20 @@ function create() {
 
 const mappings = create();
 
+function isSubsequence(sequence: string, value: string): boolean {
+	let position = -1;
+
+	for (const character of sequence) {
+		position = value.indexOf(character, position + 1);
+
+		if (position === -1) {
+			return false;
+		}
+	}
+
+	return true;
+}
+
 export function getMapping(pathname: string): string | undefined {
 	const exact = mappings.get(pathname);
 
@@ -34,7 +48,7 @@ export function getMapping(pathname: string): string | undefined {
 	let match: string | undefined;
 
 	for (const [key, href] of mappings) {
-		if (!key.startsWith(pathname)) {
+		if (!isSubsequence(pathname, key)) {
 			continue;
 		}
 
