@@ -1,6 +1,6 @@
 import { errorPage } from './html';
-import { getMapping } from './mappings';
-import { getSearchRedirect } from './search';
+import { getMappingResult } from './mappings';
+import { getSearchResult } from './search';
 
 export default {
 	fetch(request): Response {
@@ -10,18 +10,10 @@ export default {
 			return new Response(null, { status: 404 });
 		}
 
-		const searchUrl = getSearchRedirect(pathname, searchParams.get('q'));
+		const result = getSearchResult(pathname, searchParams.get('q')) ?? getMappingResult(pathname, search);
 
-		if (searchUrl) {
-			return Response.redirect(searchUrl, 302);
-		}
-
-		const url = getMapping(pathname);
-
-		if (url) {
-			return Response.redirect(`${url}${search}`, 302);
-		}
-
-		return errorPage(404, `No mapping found for ${pathname}.`);
+		return 'redirect' in result
+			? Response.redirect(result.redirect, 302)
+			: errorPage(result.status, result.message);
 	},
 } satisfies ExportedHandler<Env>;

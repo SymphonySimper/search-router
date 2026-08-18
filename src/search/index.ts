@@ -1,3 +1,5 @@
+import { getMappingResult } from '../mappings';
+import type { RouteResult } from '../result';
 import { withProtocol } from '../url';
 import { CONFIG, SEARCH_TERMS_PLACEHOLDER } from './config';
 
@@ -42,7 +44,7 @@ function createSearchUrl(engine: ResolvedSearchEngine, query: string): string {
 	return engine.search.replace(SEARCH_TERMS_PLACEHOLDER, encodeURIComponent(`${engine.prefix}${query}`));
 }
 
-export function getSearchRedirect(pathname: string, queryParameter?: string | null): string | undefined {
+export function getSearchResult(pathname: string, queryParameter?: string | null): RouteResult | undefined {
 	const queryIndex = pathname.indexOf('/', 1);
 	const searchPathname = queryIndex === -1 ? pathname : pathname.slice(0, queryIndex);
 
@@ -51,6 +53,13 @@ export function getSearchRedirect(pathname: string, queryParameter?: string | nu
 	}
 
 	const query = (queryIndex === -1 ? queryParameter : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
+
+	if (query.startsWith('@')) {
+		const mappingPathname = `/${query.slice(1).split('/').map(encodeURIComponent).join('/')}`;
+
+		return getMappingResult(mappingPathname);
+	}
+
 	const tokens = query === '' ? [] : query.split(/\s+/);
 	let engine = DEFAULT_SEARCH_ENGINE;
 	let hasBang = false;
@@ -73,5 +82,5 @@ export function getSearchRedirect(pathname: string, queryParameter?: string | nu
 		searchTerms.push(token);
 	}
 
-	return createSearchUrl(engine, searchTerms.join(' '));
+	return { redirect: createSearchUrl(engine, searchTerms.join(' ')) };
 }

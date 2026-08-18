@@ -1,4 +1,5 @@
 import CONFIG from './config';
+import type { RouteResult } from '../result';
 import { withProtocol } from '../url';
 
 function create() {
@@ -39,7 +40,7 @@ function isSubsequence(sequence: string, value: string): boolean {
 	return true;
 }
 
-export function getMapping(pathname: string): string | undefined {
+function getMapping(pathname: string): string | undefined {
 	const slugIndex = pathname.indexOf('/', 1);
 	const mappingPathname = (slugIndex === -1 ? pathname : pathname.slice(0, slugIndex)).toLowerCase();
 	const slug = slugIndex === -1 ? '' : pathname.slice(slugIndex);
@@ -56,4 +57,12 @@ export function getMapping(pathname: string): string | undefined {
 	}
 
 	return undefined;
+}
+
+export function getMappingResult(pathname: string, search = ''): RouteResult {
+	const url = getMapping(pathname);
+
+	return url
+		? { redirect: `${url}${search}` }
+		: { status: 404, message: `No mapping found for ${pathname}.` };
 }
