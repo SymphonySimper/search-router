@@ -71,15 +71,15 @@ export function getSearchResult(url: URL): RouteResult | undefined {
 		const mappingPathname = `/${mappingPath.split('/').map(encodeURIComponent).join('/')}`;
 		const mappingSearch = mappingSearchIndex === -1 ? (queryIndex === -1 ? '' : url.search) : mapping.slice(mappingSearchIndex);
 
-		return getMappingResult(mappingPathname, mappingSearch);
+		return getMappingResult(mappingPathname, mappingSearch, 'none');
 	}
 
 	if (query === '') {
-		return { redirect: DEFAULT_SEARCH_ENGINE.homepage };
+		return { redirect: DEFAULT_SEARCH_ENGINE.homepage, cache: 'none' };
 	}
 
 	if (!query.includes('!')) {
-		return { redirect: createSearchUrl(DEFAULT_SEARCH_ENGINE, query) };
+		return { redirect: createSearchUrl(DEFAULT_SEARCH_ENGINE, query), cache: 'none' };
 	}
 
 	let engine = DEFAULT_SEARCH_ENGINE;
@@ -103,5 +103,5 @@ export function getSearchResult(url: URL): RouteResult | undefined {
 		searchTerms.push(token);
 	}
 
-	return { redirect: createSearchUrl(engine, searchTerms.join(' ')) };
+	return { redirect: createSearchUrl(engine, searchTerms.join(' ')), cache: 'none' };
 }

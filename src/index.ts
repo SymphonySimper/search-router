@@ -8,13 +8,24 @@ export default {
 		const { pathname, search } = requestUrl;
 
 		if (pathname === '/favicon.ico') {
-			return new Response(null, { status: 404 });
+			return new Response(null, {
+				status: 404,
+				headers: { 'cache-control': 'private, max-age=86400' },
+			});
 		}
 
 		const result = getSearchResult(requestUrl) ?? getMappingResult(pathname, search);
 
-		return 'redirect' in result
-			? Response.redirect(result.redirect, 302)
-			: errorPage(result.status, result.message);
+		if ('redirect' in result) {
+			return new Response(null, {
+				status: 302,
+				headers: {
+					location: result.redirect,
+					'cache-control': result.cache === 'short' ? 'private, max-age=300' : 'private, no-store',
+				},
+			});
+		}
+
+		return errorPage(result.status, result.message);
 	},
 } satisfies ExportedHandler<Env>;
