@@ -71,4 +71,28 @@ function create(): Mappings {
 	return mappings;
 }
 
-export const mappings = create();
+const mappings = create();
+
+export function getMapping(pathname: string): string | undefined {
+	const exact = mappings.get(pathname);
+
+	if (exact) {
+		return exact;
+	}
+
+	let match: string | undefined;
+
+	for (const [key, href] of mappings) {
+		if (!key.startsWith(pathname)) {
+			continue;
+		}
+
+		if (match !== undefined && match !== href) {
+			return undefined;
+		}
+
+		match = href;
+	}
+
+	return match;
+}
