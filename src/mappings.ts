@@ -9,7 +9,7 @@ function create() {
 
 			return allKeys.map((key) => [`/${encodeURIComponent(key)}`, value] as const);
 		})
-		.sort(([a], [b]) => a.localeCompare(b));
+		.sort(([a], [b]) => a.length - b.length || a.localeCompare(b));
 
 	for (const [pathname, href] of entries) {
 		if (mappings.has(pathname)) {
@@ -45,19 +45,11 @@ export function getMapping(pathname: string): string | undefined {
 		return exact;
 	}
 
-	let match: string | undefined;
-
 	for (const [key, href] of mappings) {
-		if (!isSubsequence(pathname, key)) {
-			continue;
+		if (isSubsequence(pathname, key)) {
+			return href;
 		}
-
-		if (match !== undefined && match !== href) {
-			return undefined;
-		}
-
-		match = href;
 	}
 
-	return match;
+	return undefined;
 }
