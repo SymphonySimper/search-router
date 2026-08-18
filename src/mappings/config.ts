@@ -25,6 +25,10 @@ export default {
 	'mail.google.com/mail/u/1': ['gmail-1'],
 	'mail.google.com/mail/u/2': ['gmail-2'],
 
+	// Google
+	'drive.google.com': ['google-drive'],
+	'meet.google.com': ['google-meet'],
+
 	// Misc
 	'chromeenterprise.google/policies': ['chrome-enterprise-policy-list'],
 
