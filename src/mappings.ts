@@ -1,9 +1,7 @@
 import CONFIG from './config';
 
-type Mappings = Map<string, string>;
-
-function create(): Mappings {
-	const mappings: Mappings = new Map();
+function create() {
+	const mappings = new Map<string, string>();
 
 	for (const [href, keys] of Object.entries(CONFIG)) {
 		const value = href.includes('://') ? href : `https://${href}`;
