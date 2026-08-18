@@ -16,11 +16,11 @@ Keep changes small, direct, and configuration-driven. Do not add abstractions, d
 - Mapping keys are case-insensitive. Preserve destination and dynamic-slug casing.
 - Mappings are exact, explicit, case-insensitive aliases. Developers must add every supported alias to `src/mappings/config.ts`.
 - Only the first pathname segment selects a mapping; append the remaining pathname unchanged as its slug.
-- `/s`, `/search`, `/q`, and `/query` are equivalent search endpoints. Their entire pathname suffix is the query; without a suffix, use the `q` query parameter for form-encoded clients.
+- `/s` uses its pathname suffix as a normal query. `/q` is for form-encoded clients such as KISS and converts raw `+` characters in its pathname suffix to spaces before percent-decoding.
 - Search queries beginning with `@` strictly resolve everything after it through mappings, preserve destination query parameters, and return a mapping error when unresolved; other `@` characters are ordinary search text.
 - Bangs are case-insensitive tokens anywhere in the query. The first valid bang selects the engine; remove all valid bangs and preserve invalid ones as search text.
 - Searches without a valid bang use the configured default engine. Empty searches and bang-only searches open the selected homepage.
-- Search routes ignore incoming URL query parameters except a suffix-less endpoint's `q` and a leading `@` mapping's destination parameters; normal mappings preserve them.
+- Search routes ignore incoming URL query parameters except a leading `@` mapping's destination parameters; normal mappings preserve them.
 
 ## Configuration
 

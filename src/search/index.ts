@@ -3,7 +3,8 @@ import type { RouteResult } from '../result';
 import { withProtocol } from '../url';
 import { CONFIG, SEARCH_TERMS_PLACEHOLDER } from './config';
 
-const SEARCH_PATHNAMES = new Set(['/s', '/search', '/q', '/query']);
+const SEARCH_PATHNAME = '/s';
+const FORM_SEARCH_PATHNAME = '/q';
 
 type ResolvedSearchEngine = {
 	homepage: string;
@@ -58,18 +59,21 @@ export function getSearchResult(url: URL): RouteResult | undefined {
 	const queryIndex = pathname.indexOf('/', 1);
 	const searchPathname = queryIndex === -1 ? pathname : pathname.slice(0, queryIndex);
 
-	if (!SEARCH_PATHNAMES.has(searchPathname)) {
+	if (searchPathname !== SEARCH_PATHNAME && searchPathname !== FORM_SEARCH_PATHNAME) {
 		return undefined;
 	}
 
-	const query = (queryIndex === -1 ? url.searchParams.get('q') : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
+	const queryPath = queryIndex === -1 ? '' : pathname.slice(queryIndex + 1);
+	const query = decodeQuery(
+		searchPathname === FORM_SEARCH_PATHNAME ? queryPath.replaceAll('+', ' ') : queryPath,
+	).trim();
 
 	if (query.startsWith('@')) {
 		const mapping = query.slice(1);
 		const mappingSearchIndex = mapping.indexOf('?');
 		const mappingPath = mappingSearchIndex === -1 ? mapping : mapping.slice(0, mappingSearchIndex);
 		const mappingPathname = `/${mappingPath.split('/').map(encodeURIComponent).join('/')}`;
-		const mappingSearch = mappingSearchIndex === -1 ? (queryIndex === -1 ? '' : url.search) : mapping.slice(mappingSearchIndex);
+		const mappingSearch = mappingSearchIndex === -1 ? url.search : mapping.slice(mappingSearchIndex);
 
 		return getMappingResult(mappingPathname, mappingSearch, 'none');
 	}
