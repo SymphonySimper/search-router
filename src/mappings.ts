@@ -39,15 +39,18 @@ function isSubsequence(sequence: string, value: string): boolean {
 }
 
 export function getMapping(pathname: string): string | undefined {
-	const exact = mappings.get(pathname);
+	const slugIndex = pathname.indexOf('/', 1);
+	const mappingPathname = slugIndex === -1 ? pathname : pathname.slice(0, slugIndex);
+	const slug = slugIndex === -1 ? '' : pathname.slice(slugIndex);
+	const exact = mappings.get(mappingPathname);
 
 	if (exact) {
-		return exact;
+		return `${exact}${slug}`;
 	}
 
 	for (const [key, href] of mappings) {
-		if (isSubsequence(pathname, key)) {
-			return href;
+		if (isSubsequence(mappingPathname, key)) {
+			return `${href}${slug}`;
 		}
 	}
 
