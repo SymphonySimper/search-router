@@ -1,6 +1,9 @@
 type Mappings = Map<string, string>;
 
-const CONFIG: Record<string, Array<string>> = { 'github.com/SymphonySimper': ['github', 'git', 'gh'] };
+const CONFIG: Record<string, Array<string>> = {
+	'symphonysimper.com': ['', 'portfolio', 'i', 'my', 'me'],
+	'github.com/SymphonySimper': ['github', 'git', 'gh'],
+};
 
 function create(): Mappings {
 	const mappings: Mappings = new Map();
