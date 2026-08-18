@@ -1,10 +1,11 @@
 import CONFIG from './config';
+import { withProtocol } from '../url';
 
 function create() {
 	const mappings = new Map<string, string>();
 	const entries = Object.entries(CONFIG)
 		.flatMap(([href, keys]) => {
-			const value = href.includes('://') ? href : `https://${href}`;
+			const value = withProtocol(href);
 			const allKeys = keys.flatMap((key) => (key.includes('-') ? [key, key.replaceAll('-', ' ')] : key));
 
 			return allKeys.map((key) => [`/${encodeURIComponent(key)}`, value] as const);

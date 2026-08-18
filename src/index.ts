@@ -1,5 +1,6 @@
 import { notFoundPage } from './html';
 import { getMapping } from './mappings';
+import { getSearchRedirect } from './search';
 
 export default {
 	async fetch(request): Promise<Response> {
@@ -7,6 +8,12 @@ export default {
 
 		if (pathname === '/favicon.ico') {
 			return new Response('No favicon.', { status: 404 });
+		}
+
+		const searchUrl = getSearchRedirect(pathname);
+
+		if (searchUrl) {
+			return Response.redirect(searchUrl, 302);
 		}
 
 		const url = getMapping(pathname);
