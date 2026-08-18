@@ -44,7 +44,8 @@ function createSearchUrl(engine: ResolvedSearchEngine, query: string): string {
 	return engine.search.replace(SEARCH_TERMS_PLACEHOLDER, encodeURIComponent(`${engine.prefix}${query}`));
 }
 
-export function getSearchResult(pathname: string, queryParameter?: string | null): RouteResult | undefined {
+export function getSearchResult(url: URL): RouteResult | undefined {
+	const { pathname, search, searchParams } = url;
 	const queryIndex = pathname.indexOf('/', 1);
 	const searchPathname = queryIndex === -1 ? pathname : pathname.slice(0, queryIndex);
 
@@ -52,12 +53,16 @@ export function getSearchResult(pathname: string, queryParameter?: string | null
 		return undefined;
 	}
 
-	const query = (queryIndex === -1 ? queryParameter : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
+	const query = (queryIndex === -1 ? searchParams.get('q') : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
 
 	if (query.startsWith('@')) {
-		const mappingPathname = `/${query.slice(1).split('/').map(encodeURIComponent).join('/')}`;
+		const mapping = query.slice(1);
+		const mappingSearchIndex = mapping.indexOf('?');
+		const mappingPath = mappingSearchIndex === -1 ? mapping : mapping.slice(0, mappingSearchIndex);
+		const mappingPathname = `/${mappingPath.split('/').map(encodeURIComponent).join('/')}`;
+		const mappingSearch = mappingSearchIndex === -1 ? (queryIndex === -1 ? '' : search) : mapping.slice(mappingSearchIndex);
 
-		return getMappingResult(mappingPathname);
+		return getMappingResult(mappingPathname, mappingSearch);
 	}
 
 	const tokens = query === '' ? [] : query.split(/\s+/);
