@@ -4,13 +4,13 @@ import { getSearchRedirect } from './search';
 
 export default {
 	async fetch(request): Promise<Response> {
-		const { pathname, search } = new URL(request.url);
+		const { pathname, search, searchParams } = new URL(request.url);
 
 		if (pathname === '/favicon.ico') {
 			return new Response('No favicon.', { status: 404 });
 		}
 
-		const searchUrl = getSearchRedirect(pathname);
+		const searchUrl = getSearchRedirect(pathname, searchParams.get('q'));
 
 		if (searchUrl) {
 			return Response.redirect(searchUrl, 302);

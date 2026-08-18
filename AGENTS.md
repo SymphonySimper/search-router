@@ -16,10 +16,10 @@ Keep changes small, direct, and configuration-driven. Do not add abstractions, d
 - Exact mappings win. Otherwise, ordered-subsequence matches are ranked by shortest key, then alphabetically.
 - Only the first pathname segment selects a mapping; append the remaining pathname unchanged as its slug.
 - Hyphenated mapping keys automatically gain a space variant. Avoid redundant aliases when subsequence matching preserves the intended destination.
-- `/s`, `/search`, `/q`, and `/query` are equivalent search endpoints. Their entire pathname suffix is the query.
+- `/s`, `/search`, `/q`, and `/query` are equivalent search endpoints. Their entire pathname suffix is the query; without a suffix, use the `q` query parameter for form-encoded clients.
 - Bangs are case-insensitive tokens anywhere in the query. The first valid bang selects the engine; remove all valid bangs and preserve invalid ones as search text.
 - Searches without a valid bang use the configured default engine. Empty searches and bang-only searches open the selected homepage.
-- Search routes ignore incoming URL query parameters; normal mappings preserve them.
+- Search routes ignore incoming URL query parameters other than a suffix-less endpoint's `q`; normal mappings preserve them.
 
 ## Configuration
 

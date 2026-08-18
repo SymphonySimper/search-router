@@ -42,7 +42,7 @@ function createSearchUrl(engine: ResolvedSearchEngine, query: string): string {
 	return engine.search.replace(SEARCH_TERMS_PLACEHOLDER, encodeURIComponent(`${engine.prefix}${query}`));
 }
 
-export function getSearchRedirect(pathname: string): string | undefined {
+export function getSearchRedirect(pathname: string, queryParameter?: string | null): string | undefined {
 	const queryIndex = pathname.indexOf('/', 1);
 	const searchPathname = queryIndex === -1 ? pathname : pathname.slice(0, queryIndex);
 
@@ -50,7 +50,7 @@ export function getSearchRedirect(pathname: string): string | undefined {
 		return undefined;
 	}
 
-	const query = queryIndex === -1 ? '' : decodeQuery(pathname.slice(queryIndex + 1)).trim();
+	const query = (queryIndex === -1 ? queryParameter : decodeQuery(pathname.slice(queryIndex + 1)))?.trim() ?? '';
 	const tokens = query === '' ? [] : query.split(/\s+/);
 	let engine = DEFAULT_SEARCH_ENGINE;
 	let hasBang = false;
