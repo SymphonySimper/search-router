@@ -7,7 +7,7 @@ export default {
 		const { pathname, search, searchParams } = new URL(request.url);
 
 		if (pathname === '/favicon.ico') {
-			return new Response('No favicon.', { status: 404 });
+			return new Response(null, { status: 404 });
 		}
 
 		const searchUrl = getSearchRedirect(pathname, searchParams.get('q'));
