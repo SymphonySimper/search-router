@@ -2,21 +2,21 @@ import CONFIG from './config';
 
 function create() {
 	const mappings = new Map<string, string>();
+	const entries = Object.entries(CONFIG)
+		.flatMap(([href, keys]) => {
+			const value = href.includes('://') ? href : `https://${href}`;
+			const allKeys = keys.flatMap((key) => (key.includes('-') ? [key, key.replaceAll('-', ' ')] : key));
 
-	for (const [href, keys] of Object.entries(CONFIG)) {
-		const value = href.includes('://') ? href : `https://${href}`;
+			return allKeys.map((key) => [`/${encodeURIComponent(key)}`, value] as const);
+		})
+		.sort(([a], [b]) => a.localeCompare(b));
 
-		const allKeys = keys.flatMap((k) => (k.includes('-') ? [k, k.replaceAll('-', ' ')] : k));
-
-		for (const key of allKeys) {
-			const pathname = `/${encodeURIComponent(key)}`;
-
-			if (mappings.has(pathname)) {
-				throw new Error(`Duplicate pathname found: ${pathname} already mapped to ${mappings.get(pathname)}.`);
-			}
-
-			mappings.set(pathname, value);
+	for (const [pathname, href] of entries) {
+		if (mappings.has(pathname)) {
+			throw new Error(`Duplicate pathname found: ${pathname} already mapped to ${mappings.get(pathname)}.`);
 		}
+
+		mappings.set(pathname, href);
 	}
 
 	return mappings;
