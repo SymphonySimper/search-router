@@ -53,6 +53,10 @@ build/Release
 node_modules/
 jspm_packages/
 
+# Wrangler-generated types
+
+worker-configuration.d.ts
+
 # Snowpack dependency directory (https://snowpack.dev/)
 
 web_modules/

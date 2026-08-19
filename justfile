@@ -1,4 +1,4 @@
-init:
+init: && cf-typegen
     pnpm install
 
 deploy:
