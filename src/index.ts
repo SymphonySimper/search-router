@@ -1,6 +1,6 @@
-import { errorPage } from './html';
 import { getMappingResult } from './mappings';
 import { getSearchResult } from './search';
+import { errorPage } from './utils';
 
 export default {
 	fetch(request): Response {

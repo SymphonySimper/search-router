@@ -1,6 +1,6 @@
 import { getMappingResult } from '../mappings';
-import type { RouteResult } from '../result';
 import GENERATED_SEARCH from '../generated/search.json';
+import type { RouteResult } from '../types';
 
 const SEARCH_PATHNAME = '/s';
 const FORM_SEARCH_PATHNAME = '/q';

@@ -1,5 +1,5 @@
-import type { RouteResult } from '../result';
 import GENERATED_MAPPINGS from '../generated/mappings.json';
+import type { RouteResult } from '../types';
 
 const MAPPINGS: Record<string, string> = GENERATED_MAPPINGS;
 
