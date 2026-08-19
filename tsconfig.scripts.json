@@ -1,0 +1,17 @@
+{
+	"compilerOptions": {
+		"target": "es2024",
+		"lib": ["es2024"],
+		"module": "es2022",
+		"moduleResolution": "Bundler",
+		"allowImportingTsExtensions": true,
+		"erasableSyntaxOnly": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"types": ["node"],
+		"verbatimModuleSyntax": true
+	},
+	"include": ["scripts/**/*.ts", "src/mappings/config.ts", "src/search/config.ts", "src/url.ts"]
+}

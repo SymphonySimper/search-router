@@ -2,15 +2,19 @@
 	"name": "url-redirector",
 	"version": "0.0.0",
 	"private": true,
+	"type": "module",
 	"packageManager": "pnpm@11.18.0",
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
 		"cf-typegen": "wrangler types",
+		"config:compile": "node scripts/compile.ts",
+		"typecheck": "pnpm config:compile && tsc --noEmit && tsc --project tsconfig.scripts.json",
 		"format": "prettier --write ."
 	},
 	"devDependencies": {
+		"@types/node": "^24.13.3",
 		"prettier": "^3.9.6",
 		"typescript": "^5.5.2",
 		"wrangler": "^4.123.0"

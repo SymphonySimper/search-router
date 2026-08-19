@@ -1,7 +1,6 @@
 import { getMappingResult } from '../mappings';
 import type { RouteResult } from '../result';
-import { withProtocol } from '../url';
-import { CONFIG, SEARCH_TERMS_PLACEHOLDER } from './config';
+import GENERATED_SEARCH from '../generated/search.json';
 
 const SEARCH_PATHNAME = '/s';
 const FORM_SEARCH_PATHNAME = '/q';
@@ -13,30 +12,8 @@ type ResolvedSearchEngine = {
 	prefix: string;
 };
 
-function create() {
-	const defaultEngine = CONFIG.engines[CONFIG.default];
-	const defaultSearch = withProtocol(`${defaultEngine.url}${defaultEngine.search}`);
-	const entries = Object.entries(CONFIG.engines).map(([key, engine]) => {
-		const homepage = withProtocol('site' in engine ? engine.site : engine.url);
-		const search = 'site' in engine ? defaultSearch : withProtocol(`${engine.url}${engine.search}`);
-		const termsIndex = search.indexOf(SEARCH_TERMS_PLACEHOLDER);
-
-		return [
-			key,
-			{
-				homepage,
-				beforeTerms: search.slice(0, termsIndex),
-				afterTerms: search.slice(termsIndex + SEARCH_TERMS_PLACEHOLDER.length),
-				prefix: 'site' in engine ? `site:${engine.site} ` : '',
-			},
-		] as const;
-	});
-
-	return new Map<string, ResolvedSearchEngine>(entries);
-}
-
-const SEARCH_ENGINES = create();
-const DEFAULT_SEARCH_ENGINE = SEARCH_ENGINES.get(CONFIG.default)!;
+const SEARCH_ENGINES: Record<string, ResolvedSearchEngine> = GENERATED_SEARCH.engines;
+const DEFAULT_SEARCH_ENGINE = SEARCH_ENGINES[GENERATED_SEARCH.default];
 
 function decodeQuery(value: string): string {
 	try {
@@ -91,7 +68,7 @@ export function getSearchResult(url: URL): RouteResult | undefined {
 	for (const token of query.split(/\s+/)) {
 		const bang = token.startsWith('!') ? token.slice(1).toLowerCase() : '';
 
-		const bangEngine = SEARCH_ENGINES.get(bang);
+		const bangEngine = Object.hasOwn(SEARCH_ENGINES, bang) ? SEARCH_ENGINES[bang] : undefined;
 
 		if (bangEngine) {
 			if (!hasBang) {

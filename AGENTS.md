@@ -5,8 +5,9 @@ Keep changes small, direct, and configuration-driven. Do not add abstractions, d
 ## Architecture
 
 - `src/index.ts` is the Cloudflare Worker entrypoint. Search routes must be checked before normal mappings.
-- `src/mappings/config.ts` contains redirect destinations and canonical keys; `src/mappings/index.ts` builds the lookup map once.
-- `src/search/config.ts` contains the default engine and bang definitions; `src/search/index.ts` resolves complete URL templates once.
+- `src/mappings/config.ts` contains redirect destinations and canonical keys; `src/generated/mappings.json` is its ignored compiled lookup.
+- `src/search/config.ts` contains the default engine and bang definitions; `src/generated/search.json` contains ignored compiled URL templates.
+- `scripts/compile.ts` validates and compiles both configurations before Wrangler starts.
 - `src/result.ts` defines the common redirect-or-error result returned by route resolvers.
 - `src/url.ts` owns protocol normalization. Store configured hosts without `https://` and use `withProtocol()`.
 - The production search domain is `p1a.in`; the Chromium configuration in `~/.dotfiles` points to `https://p1a.in/s/`.
@@ -30,6 +31,6 @@ Keep changes small, direct, and configuration-driven. Do not add abstractions, d
 
 ## Verification and Git
 
-- Run `./node_modules/.bin/tsc --noEmit` and `git diff --check` for every change.
+- Run `pnpm typecheck` and `git diff --check` for every change.
 - Use focused Bun assertions for affected mappings, bangs, and Worker redirect integration; there is no committed test suite.
 - Do not deploy, commit, push, amend, or rewrite history unless explicitly requested. When asked to split commits, stage and verify each concern independently.

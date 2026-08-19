@@ -7,6 +7,9 @@ settings:
 importers:
   .:
     devDependencies:
+      '@types/node':
+        specifier: ^24.13.3
+        version: 24.13.3
       prettier:
         specifier: ^3.9.6
         version: 3.9.6
@@ -412,6 +415,9 @@ packages:
   '@speed-highlight/core@1.2.24':
     resolution: { integrity: sha512-qeW2e1l78afw8VhRPfPQ1Gjj+KU5XFQ/OFV5ti6eTa9bruO7mJyZtA4vw0ofqmA3tKCkROE9xLk3VZoeRc98nw== }
 
+  '@types/node@24.13.3':
+    resolution: { integrity: sha512-Dh8vAsV36ig5wa9OX4pXvMc9D3Veibfw2wix0CUwYODLD8nkj9UsLjASr49nPg+2eKzxhBV+v7L8pXvT4e639Q== }
+
   blake3-wasm@2.1.5:
     resolution: { integrity: sha512-F1+K8EbfOZE49dtoPtmxUQrpXaBIl3ICvasLh+nJta0xkz+9kF/7uet9fLnwKqhDrmj6g+6K3Tw9yQPUg2ka5g== }
 
@@ -475,6 +481,9 @@ packages:
     resolution: { integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw== }
     engines: { node: '>=14.17' }
     hasBin: true
+
+  undici-types@7.18.2:
+    resolution: { integrity: sha512-AsuCzffGHJybSaRrmr5eHr81mwJU3kjw6M+uprWvCXiNeN9SOGwQ3Jn8jb8m3Z6izVgknn1R0FTCEAP2QrLY/w== }
 
   undici@7.29.0:
     resolution: { integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw== }
@@ -758,6 +767,10 @@ snapshots:
 
   '@speed-highlight/core@1.2.24': {}
 
+  '@types/node@24.13.3':
+    dependencies:
+      undici-types: 7.18.2
+
   blake3-wasm@2.1.5: {}
 
   cookie@1.1.1: {}
@@ -858,6 +871,8 @@ snapshots:
     optional: true
 
   typescript@5.9.3: {}
+
+  undici-types@7.18.2: {}
 
   undici@7.29.0: {}
 

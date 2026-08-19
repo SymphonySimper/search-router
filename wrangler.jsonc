@@ -7,6 +7,10 @@
 	"name": "url-redirector",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-08-18",
+	"build": {
+		"command": "pnpm config:compile",
+		"watch_dir": ["scripts/compile.ts", "src/mappings/config.ts", "src/search/config.ts", "src/url.ts"],
+	},
 	"observability": {
 		"enabled": true,
 		"head_sampling_rate": 0.01,
