@@ -12,7 +12,7 @@ export default {
 
 	// Dev
 	'github.com/SymphonySimper/.dotfiles': ['dotfiles', 'dots', 'nix-config'],
-	'github.com/SymphonySimper': ['github', 'gh'],
+	'github.com/repos': ['github', 'gh'],
 	'fonts.google.com': ['google-fonts', 'gf'],
 	'courses.joshwcomeau.com': ['joshw-courses', 'josh'],
 	'leetcode.com': ['leetcode', 'lt'],
