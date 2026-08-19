@@ -1,3 +1,5 @@
+init:
+	pnpm install
 deploy:
     pnpm run deploy
 dev:
