@@ -13,5 +13,5 @@
 		"types": ["node"],
 		"verbatimModuleSyntax": true
 	},
-	"include": ["scripts/**/*.ts", "src/mappings/config.ts", "src/search/config.ts", "src/url.ts"]
+	"include": ["scripts/**/*.ts", "src/mappings/config.ts", "src/search/config.ts"]
 }

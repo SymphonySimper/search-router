@@ -9,7 +9,7 @@
 	"compatibility_date": "2026-08-18",
 	"build": {
 		"command": "pnpm config:compile",
-		"watch_dir": ["scripts/compile.ts", "src/mappings/config.ts", "src/search/config.ts", "src/url.ts"],
+		"watch_dir": ["scripts/compile.ts", "src/mappings/config.ts", "src/search/config.ts"],
 	},
 	"observability": {
 		"enabled": true,
