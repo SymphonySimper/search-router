@@ -14,6 +14,7 @@ export default {
 	'github.com/SymphonySimper/.dotfiles': ['dotfiles', 'dots', 'nix-config'],
 	'github.com/SymphonySimper': ['github', 'gh'],
 	'fonts.google.com': ['google-fonts', 'gf'],
+	'courses.joshwcomeau.com': ['joshw-courses', 'josh'],
 	'leetcode.com': ['leetcode', 'lt'],
 	'regex101.com': ['regex101', 're101'],
 	'svelte.dev': ['svelte', 'sv'],
