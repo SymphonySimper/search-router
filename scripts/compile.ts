@@ -58,8 +58,6 @@ function compileMappings(): Record<string, string> {
 		}
 	}
 
-	entries.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
-
 	return Object.fromEntries(entries);
 }
 
@@ -120,8 +118,6 @@ function compileSearchEngines(): { default: string; engines: Record<string, Reso
 			},
 		]);
 	}
-
-	entries.sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0));
 
 	return {
 		default: defaultKey,
