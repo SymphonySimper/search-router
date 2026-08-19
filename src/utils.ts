@@ -31,6 +31,7 @@ export function errorPage(status: number, message: string): Response {
 		headers: {
 			'content-type': 'text/html;charset=UTF-8',
 			'cache-control': 'private, no-store',
+			'x-robots-tag': 'noindex',
 		},
 	});
 }

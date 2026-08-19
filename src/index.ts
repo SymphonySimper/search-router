@@ -10,7 +10,10 @@ export default {
 		if (pathname === '/favicon.ico') {
 			return new Response(null, {
 				status: 404,
-				headers: { 'cache-control': 'private, max-age=86400' },
+				headers: {
+					'cache-control': 'private, max-age=86400',
+					'x-robots-tag': 'noindex',
+				},
 			});
 		}
 
@@ -22,6 +25,7 @@ export default {
 				headers: {
 					location: result.redirect,
 					'cache-control': result.cache === 'short' ? 'private, max-age=300' : 'private, no-store',
+					'x-robots-tag': 'noindex',
 				},
 			});
 		}
