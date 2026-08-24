@@ -18,7 +18,7 @@ export default {
 	'leetcode.com': ['leetcode', 'lt'],
 	'regex101.com': ['regex101', 're101'],
 	'svelte.dev': ['svelte', 'sv'],
-	'svelte-changelog.vercel.app': ['svelte-changelog', 'sv-log'],
+	'svelte-changelog.dev': ['svelte-changelog', 'sv-log'],
 	'tailwindcss.com/docs/installation': ['tailwindcss', 'tailwind'],
 
 	// Email
