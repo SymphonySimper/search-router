@@ -51,4 +51,5 @@ export default {
 	'monkeytype.com': ['monkeytype', 'mt'],
 	'squoosh.app': ['squoosh', 'sq', 'image-compress'],
 	'www.virustotal.com': ['virustotal', 'vt'],
+	'speed.cloudflare.com': ['speed', 'speedtest', 'ookla'],
 } satisfies Record<string, Array<string>>;
