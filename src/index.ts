@@ -1,5 +1,6 @@
 import { DEFAULT_HEADERS, RESERVED_PATHNAMES } from './constants.ts';
 import { getUrlForRequest } from './router.ts';
+import { withProtocol } from './utils.ts';
 
 export default {
 	fetch(request): Response {
@@ -15,14 +16,14 @@ export default {
 			});
 		}
 
-		const url = getUrlForRequest(requestUrl);
+		const urlArgs = getUrlForRequest(requestUrl);
 
-		if (url) {
+		if (urlArgs) {
 			return new Response(null, {
 				status: 302,
 				headers: {
 					...DEFAULT_HEADERS,
-					location: url,
+					location: withProtocol(...urlArgs),
 					'cache-control': 'private, max-age=300',
 				},
 			});

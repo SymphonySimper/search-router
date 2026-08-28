@@ -20,6 +20,7 @@ The examples use `go.example.com` as the address.
 - Aliases are case-sensitive. `/GH` gives a 404.
 - Mappings drop the query string. `/gh?tab=stars` goes to `https://github.com/repos`.
 - A bang picks a different engine. It can be in any position. The worker uses the first one only.
+- A target without its own search uses the default engine to search its host.
 - `@` in a search uses the mappings.
 
 To use it in your browser, add it as a search engine with this address:
@@ -27,26 +28,31 @@ To use it in your browser, add it as a search engine with this address:
 
 ## Configure
 
-Mappings are in `src/config/mappings.ts`. The key is the destination. The value is a list of
-aliases.
+Targets are grouped by host in `src/config.ts`. Each ID works as both a path alias and a search
+bang.
 
 ```ts
-'github.com/repos': ['github', 'gh'],
+'github.com': [
+	{ keys: ['github', 'gh'], path: '/repos' },
+],
 ```
 
-Search engines are in `src/config/search.ts`. The key is the bang.
+Add `search` when the host has its own search URL. The build replaces `{searchTerms}` with the
+encoded query.
 
 ```ts
-b: { url: 'search.brave.com', search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` },
-rt: { site: 'www.reddit.com' },
+'www.youtube.com': [
+	{
+		keys: ['youtube', 'yt'],
+		search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}`,
+	},
+],
 ```
 
-`b` has its own search page. `{searchTerms}` is the place for the query.
+The worker uses HTTPS for every host. A target without `path` opens the host homepage. A search
+without `search` becomes a site search through the default engine.
 
-`rt` has no search page. For these, the worker searches for
-`site:https://www.reddit.com <query>` with the default engine.
-
-The build checks both files. A mistake stops the build and tells you the reason.
+The build checks the configuration. A mistake stops the build and tells you the reason.
 
 ## Commands
 

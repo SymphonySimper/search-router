@@ -1,18 +1,28 @@
 import { RESERVED_PATHNAMES, SEARCH_BANG_REGEX, SEARCH_PATHNAME_FULL, SEARCH_QUERY_PARAM } from './constants.ts';
-import { URLS, MAPPINGS, SEARCH_ENGINE_DEFAULT, SEARCH_ENGINES } from './generated.ts';
-import type { SearchEngine } from './types.ts';
+import { DEFAULT_ROUTE, PARTS, ROUTES } from './generated.ts';
+import type { Route } from './types.ts';
+import { getKey, withProtocol } from './utils.ts';
 
-type ResultType = string | null;
+type ResultType = Parameters<typeof withProtocol> | null;
 
-function getMapping(pathname: URL['pathname']): ResultType {
-	const slugIndex = pathname.indexOf('/', 1); // NOTE: this is for dynamic slugs (ex: /c/111 where '111' is dynamic)
+function getMapping(key: string): ResultType {
+	const slugIndex = key.indexOf('/', 1); // NOTE: this is for dynamic slugs (ex: c/111 where '111' is dynamic)
 
-	const mappingPathname = slugIndex === -1 ? pathname : pathname.slice(0, slugIndex);
-	const slug = slugIndex === -1 ? '' : pathname.slice(slugIndex);
+	const mappingPathname = slugIndex === -1 ? key : key.slice(0, slugIndex);
+	const slug = slugIndex === -1 ? '' : key.slice(slugIndex);
 
-	const href = URLS[MAPPINGS[mappingPathname]];
+	const route = ROUTES[mappingPathname];
+	const host = route ? PARTS[route[0]] : undefined;
 
-	return href ? `${href}${slug}` : null;
+	if (!host || !route) {
+		return null;
+	}
+
+	if (route.length === 1 || route.length === 3) {
+		return [host, slug];
+	}
+
+	return [host, PARTS[route[1]], slug];
 }
 
 function getSearchResult(url: URL): ResultType {
@@ -30,41 +40,50 @@ function getSearchResult(url: URL): ResultType {
 	query = query.trim();
 
 	if (query === '') {
-		return SEARCH_ENGINE_DEFAULT[0];
+		return [PARTS[DEFAULT_ROUTE[0]]];
 	}
 
 	if (query.at(0) === '@') {
-		return getMapping(`/${query.slice(1)}`);
+		return getMapping(query.slice(1));
 	}
 
 	// Checking for '!' and then doing match is faster
 	const [bang, bangEngineKey] = (query.includes('!') ? query.match(SEARCH_BANG_REGEX) : null) ?? [null, null];
 
-	let engine: SearchEngine;
+	let route: Route;
 
-	if (bang && bangEngineKey && Object.hasOwn(SEARCH_ENGINES, bangEngineKey)) {
-		engine = SEARCH_ENGINES[bangEngineKey];
+	if (bang && bangEngineKey && Object.hasOwn(ROUTES, bangEngineKey)) {
+		route = ROUTES[bangEngineKey];
 		query = query.replace(bang, '').trim();
 	} else {
-		engine = SEARCH_ENGINE_DEFAULT;
+		route = DEFAULT_ROUTE;
 	}
-
-	const homePage = engine[0];
 
 	if (query === '') {
-		return homePage;
+		const host = PARTS[route[0]];
+		const path = route.length === 2 || route.length === 4 ? PARTS[route[1]] : null;
+
+		return path !== null ? [host, path] : [host];
 	}
 
-	if (engine.length === 1) {
-		const [dHomePage, dBefore, dAfter] = SEARCH_ENGINE_DEFAULT;
-		const encodedQuery = encodeURIComponent(`site:${homePage} ${query}`);
+	if (route.length === 1 || route.length === 2) {
+		const host = PARTS[route[0]];
 
-		return `${dHomePage}${dBefore}${encodedQuery}${dAfter}`;
+		const [defaultHostIndex, defaultBeforeIndex, defaultAfterIndex] = DEFAULT_ROUTE;
+		return [PARTS[defaultHostIndex], PARTS[defaultBeforeIndex], encodeURIComponent(`site:${host} ${query}`), PARTS[defaultAfterIndex]];
 	}
 
-	const [, before, after] = engine;
+	if (route.length === 3) {
+		const [hostIndex, beforeIndex, afterIndex] = route;
+		return [PARTS[hostIndex], PARTS[beforeIndex], encodeURIComponent(query), PARTS[afterIndex]];
+	}
 
-	return `${homePage}${before}${encodeURIComponent(query)}${after}`;
+	if (route.length === 4) {
+		const [hostIndex, pathIndex, beforeIndex, afterIndex] = route;
+		return [PARTS[hostIndex], PARTS[pathIndex], PARTS[beforeIndex], encodeURIComponent(query), PARTS[afterIndex]];
+	}
+
+	return null;
 }
 
 export function getUrlForRequest(url: URL): ResultType {
@@ -74,5 +93,5 @@ export function getUrlForRequest(url: URL): ResultType {
 		return getSearchResult(url);
 	}
 
-	return getMapping(pathname);
+	return getMapping(getKey(url.pathname));
 }

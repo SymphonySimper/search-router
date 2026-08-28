@@ -1,7 +1,7 @@
-export type MappingURLs = Array<string>;
-export type Mappings = Record<string, number>;
+export type Parts = Array<string>;
 
-export type SiteSearchEngine = [homePage: string];
-export type ActualSearchEngine = [homePage: string, before: string, after: string];
-export type SearchEngine = SiteSearchEngine | ActualSearchEngine;
-export type SearchEngines = Record<string, SearchEngine>;
+export type SiteRoute = [hostIndex: number] | [hostIndex: number, pathIndex: number];
+export type DirectSearchRoute =
+	| [hostIndex: number, pathIndex: number, beforeIndex: number, afterIndex: number]
+	| [hostIndex: number, beforeIndex: number, afterIndex: number];
+export type Route = SiteRoute | DirectSearchRoute;
