@@ -52,4 +52,5 @@ export default {
 	'squoosh.app': ['squoosh', 'sq', 'image-compress'],
 	'www.virustotal.com': ['virustotal', 'vt'],
 	'speed.cloudflare.com': ['speed', 'speedtest', 'ookla'],
+	'www.google.com/search?q=google%20flip%20a%20coin': ['flip', 'coin'],
 } satisfies Record<string, Array<string>>;
