@@ -1,4 +1,4 @@
-# URL Redirector
+# Search Router
 
 A Cloudflare Worker that sends queries to configured search engines. A bang can also open a
 configured target.
