@@ -29,6 +29,10 @@ for (const [host, targets] of Object.entries(CONFIG)) {
 		throw new Error(`Not a valid host: ${host}`);
 	}
 
+	if (host !== encodeURIComponent(host)) {
+		throw new Error(`Host must be URL safe: ${host}`);
+	}
+
 	const hostIndex = addToParts(host);
 
 	for (const target of targets) {

@@ -4,9 +4,7 @@ import type { DirectSearchRoute, Route } from './types.ts';
 
 type ResultType = string | null;
 
-function getDirectSearchResult(route: DirectSearchRoute, query: string): string {
-	const encodedQuery = encodeURIComponent(query);
-
+function buildSearch(route: DirectSearchRoute, encodedQuery: string): string {
 	if (route.length === 3) {
 		const [hostIndex, beforeIndex, afterIndex] = route;
 		return PARTS[hostIndex] + PARTS[beforeIndex] + encodedQuery + PARTS[afterIndex];
@@ -56,10 +54,8 @@ export function getUrlForRequest(url: URL): ResultType {
 	}
 
 	if (route.length === 1 || route.length === 2) {
-		const host = PARTS[route[0]];
-
-		return getDirectSearchResult(DEFAULT_ROUTE, `site:${host} ${query}`);
+		return buildSearch(DEFAULT_ROUTE, `site%3A${PARTS[route[0]]}%20${encodeURIComponent(query)}`);
 	}
 
-	return getDirectSearchResult(route, query);
+	return buildSearch(route, encodeURIComponent(query));
 }
