@@ -35,13 +35,13 @@ export function getUrlForRequest(url: URL): ResultType {
 	}
 
 	// Checking for '!' and then doing match is faster
-	const [bang, bangEngineKey] = (query.includes('!') ? query.match(SEARCH_BANG_REGEX) : null) ?? [null, null];
+	const match = query.includes('!') ? query.match(SEARCH_BANG_REGEX) : null;
 
 	let route: Route;
 
-	if (bang && bangEngineKey && Object.hasOwn(ROUTES, bangEngineKey)) {
-		route = ROUTES[bangEngineKey];
-		query = query.replace(bang, '').trim();
+	if (match && Object.hasOwn(ROUTES, match[1])) {
+		route = ROUTES[match[1]];
+		query = query.replace(match[0], '').trim();
 	} else {
 		route = DEFAULT_ROUTE;
 	}
