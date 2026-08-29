@@ -41,7 +41,9 @@ export function getUrlForRequest(url: URL): ResultType {
 
 	if (match && Object.hasOwn(ROUTES, match[1])) {
 		route = ROUTES[match[1]];
-		query = query.replace(match[0], '').trim();
+
+		const start = match.index ?? 0;
+		query = (query.slice(0, start) + query.slice(start + match[0].length)).trim();
 	} else {
 		route = DEFAULT_ROUTE;
 	}
