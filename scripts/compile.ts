@@ -2,9 +2,8 @@ import { writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
 import { CONFIG, DEFAULT_SEARCH_KEY, SEARCH_TERMS_PLACEHOLDER } from '../src/config.ts';
-import { KEY_PATTERN, RESERVED_PATHNAMES } from '../src/constants.ts';
+import { KEY_PATTERN, PROTOCOL, RESERVED_PATHNAMES } from '../src/constants.ts';
 import type { Parts, Route } from '../src/types.ts';
-import { withProtocol } from '../src/utils.ts';
 
 const RESERVED_PATHNAMES_VALUES = Object.values(RESERVED_PATHNAMES);
 
@@ -21,8 +20,8 @@ function addToParts(value: string): number {
 	return parts.length - 1;
 }
 
-function isNotURL(...args: Parameters<typeof withProtocol>): boolean {
-	return !URL.canParse(withProtocol(...args));
+function isNotURL(...args: Array<string>): boolean {
+	return !URL.canParse(PROTOCOL + args.join(''));
 }
 
 for (const [host, targets] of Object.entries(CONFIG)) {
