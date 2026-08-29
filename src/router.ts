@@ -20,7 +20,7 @@ export function getUrlForRequest(url: URL): ResultType {
 	// pathname search takes precedence over param search
 	let query: string = url.pathname.slice(1); // remove '/'
 
-	if (query) {
+	if (query && query.includes('%')) {
 		try {
 			query = decodeURIComponent(query);
 		} catch {}
