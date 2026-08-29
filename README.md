@@ -7,24 +7,22 @@ other search engines.
 
 The examples use `go.example.com` as the address.
 
-| You go to          | The worker sends you to                   |
-| ------------------ | ----------------------------------------- |
-| `/gh`              | `https://github.com/repos`                |
-| `/c/111`           | `https://symphonysimper.com/color/111`    |
-| `/s?q=rust traits` | Google, and it searches for `rust traits` |
-| `/s/rust traits`   | the same                                  |
-| `/s?q=!b rust`     | Brave, and it searches for `rust`         |
-| `/s?q=@gh`         | `https://github.com/repos`                |
-| `/nope`            | 404                                       |
+| You go to         | The worker sends you to                   |
+| ----------------- | ----------------------------------------- |
+| `/!repos`         | `https://github.com/repos`                |
+| `/!c 111`         | `https://symphonysimper.com/color/111`    |
+| `/?q=rust traits` | Google, and it searches for `rust traits` |
+| `/rust traits`    | the same                                  |
+| `/?q=!b rust`     | Brave, and it searches for `rust`         |
+| `/?q=!repos`      | `https://github.com/repos`                |
 
 - Aliases are case-sensitive. `/GH` gives a 404.
-- Mappings drop the query string. `/gh?tab=stars` goes to `https://github.com/repos`.
 - A bang picks a different engine. It can be in any position. The worker uses the first one only.
 - A target without its own search uses the default engine to search its host.
-- `@` in a search uses the mappings.
 
 To use it in your browser, add it as a search engine with this address:
-`https://go.example.com/s?q=%s`.
+`https://go.example.com/%s`.
+To use in android launcher use `https://go.example.com/?q=%s`.
 
 ## Configure
 

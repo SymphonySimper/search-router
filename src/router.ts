@@ -1,33 +1,13 @@
-import { RESERVED_PATHNAMES, SEARCH_BANG_REGEX, SEARCH_PATHNAME_FULL, SEARCH_QUERY_PARAM } from './constants.ts';
+import { SEARCH_BANG_REGEX, SEARCH_QUERY_PARAM } from './constants.ts';
 import { DEFAULT_ROUTE, PARTS, ROUTES } from './generated.ts';
 import type { Route } from './types.ts';
-import { getKey, withProtocol } from './utils.ts';
+import { withProtocol } from './utils.ts';
 
 type ResultType = Parameters<typeof withProtocol> | null;
 
-function getMapping(key: string): ResultType {
-	const slugIndex = key.indexOf('/', 1); // NOTE: this is for dynamic slugs (ex: c/111 where '111' is dynamic)
-
-	const mappingPathname = slugIndex === -1 ? key : key.slice(0, slugIndex);
-	const slug = slugIndex === -1 ? '' : key.slice(slugIndex);
-
-	const route = ROUTES[mappingPathname];
-	const host = route ? PARTS[route[0]] : undefined;
-
-	if (!host || !route) {
-		return null;
-	}
-
-	if (route.length === 1 || route.length === 3) {
-		return [host, slug];
-	}
-
-	return [host, PARTS[route[1]], slug];
-}
-
-function getSearchResult(url: URL): ResultType {
+export function getUrlForRequest(url: URL): ResultType {
 	// pathname search takes precedence over param search
-	let query: string = url.pathname.slice(SEARCH_PATHNAME_FULL.length);
+	let query: string = url.pathname.slice(1); // remove '/'
 
 	if (query) {
 		try {
@@ -40,11 +20,7 @@ function getSearchResult(url: URL): ResultType {
 	query = query.trim();
 
 	if (query === '') {
-		return [PARTS[DEFAULT_ROUTE[0]]];
-	}
-
-	if (query.at(0) === '@') {
-		return getMapping(query.slice(1));
+		return null;
 	}
 
 	// Checking for '!' and then doing match is faster
@@ -84,14 +60,4 @@ function getSearchResult(url: URL): ResultType {
 	}
 
 	return null;
-}
-
-export function getUrlForRequest(url: URL): ResultType {
-	const { pathname } = url;
-
-	if (pathname === RESERVED_PATHNAMES.search || pathname.startsWith(SEARCH_PATHNAME_FULL)) {
-		return getSearchResult(url);
-	}
-
-	return getMapping(getKey(url.pathname));
 }

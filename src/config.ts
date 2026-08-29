@@ -8,7 +8,10 @@ type Target = {
 };
 
 export const CONFIG: Record<string, Array<Target>> = {
-	'symphonysimper.com': [{ keys: ['portfolio', 'i', 'my', 'me'] }, { keys: ['color', 'c'], path: '/color' }],
+	'symphonysimper.com': [
+		{ keys: ['portfolio', 'i', 'my', 'me'] },
+		{ keys: ['color', 'c'], path: '/color', search: `/${SEARCH_TERMS_PLACEHOLDER}` },
+	],
 
 	// Bank
 	'unifiedportal-mem.epfindia.gov.in': [{ keys: ['epfo', 'pf'], path: '/memberinterface' }],
