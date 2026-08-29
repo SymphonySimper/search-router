@@ -78,7 +78,7 @@ if (!defaultRoute) {
 	throw new Error(`Default search key does not exist: ${DEFAULT_SEARCH_KEY}`);
 }
 
-if (defaultRoute.length < 3) {
+if (defaultRoute.length !== 3 && defaultRoute.length !== 4) {
 	throw new Error(`Default search key must be a direct search: ${DEFAULT_SEARCH_KEY}`);
 }
 

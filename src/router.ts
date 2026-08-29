@@ -1,9 +1,21 @@
 import { SEARCH_BANG_REGEX, SEARCH_QUERY_PARAM } from './constants.ts';
 import { DEFAULT_ROUTE, PARTS, ROUTES } from './generated.ts';
-import type { Route } from './types.ts';
+import type { DirectSearchRoute, Route } from './types.ts';
 import { withProtocol } from './utils.ts';
 
 type ResultType = Parameters<typeof withProtocol> | null;
+
+function getDirectSearchResult(route: DirectSearchRoute, query: string): Parameters<typeof withProtocol> {
+	const encodedQuery = encodeURIComponent(query);
+
+	if (route.length === 3) {
+		const [hostIndex, beforeIndex, afterIndex] = route;
+		return [PARTS[hostIndex], PARTS[beforeIndex], encodedQuery, PARTS[afterIndex]];
+	}
+
+	const [hostIndex, pathIndex, beforeIndex, afterIndex] = route;
+	return [PARTS[hostIndex], PARTS[pathIndex], PARTS[beforeIndex], encodedQuery, PARTS[afterIndex]];
+}
 
 export function getUrlForRequest(url: URL): ResultType {
 	// pathname search takes precedence over param search
@@ -45,19 +57,8 @@ export function getUrlForRequest(url: URL): ResultType {
 	if (route.length === 1 || route.length === 2) {
 		const host = PARTS[route[0]];
 
-		const [defaultHostIndex, defaultBeforeIndex, defaultAfterIndex] = DEFAULT_ROUTE;
-		return [PARTS[defaultHostIndex], PARTS[defaultBeforeIndex], encodeURIComponent(`site:${host} ${query}`), PARTS[defaultAfterIndex]];
+		return getDirectSearchResult(DEFAULT_ROUTE, `site:${host} ${query}`);
 	}
 
-	if (route.length === 3) {
-		const [hostIndex, beforeIndex, afterIndex] = route;
-		return [PARTS[hostIndex], PARTS[beforeIndex], encodeURIComponent(query), PARTS[afterIndex]];
-	}
-
-	if (route.length === 4) {
-		const [hostIndex, pathIndex, beforeIndex, afterIndex] = route;
-		return [PARTS[hostIndex], PARTS[pathIndex], PARTS[beforeIndex], encodeURIComponent(query), PARTS[afterIndex]];
-	}
-
-	return null;
+	return getDirectSearchResult(route, query);
 }
