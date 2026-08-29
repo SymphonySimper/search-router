@@ -1,7 +1,7 @@
 # URL Redirector
 
-A Cloudflare Worker. It changes short paths into full URLs. It also sends your searches to
-other search engines.
+A Cloudflare Worker that sends queries to configured search engines. A bang can also open a
+configured target.
 
 ## Use
 
@@ -9,29 +9,31 @@ The examples use `go.example.com` as the address.
 
 | You go to         | The worker sends you to                   |
 | ----------------- | ----------------------------------------- |
+| `/rust traits`    | Google, and it searches for `rust traits` |
+| `/?q=rust traits` | the same                                  |
+| `/!b rust`        | Brave, and it searches for `rust`         |
 | `/!repos`         | `https://github.com/repos`                |
+| `/!repos actions` | Google, with a site search for GitHub     |
 | `/!c 111`         | `https://symphonysimper.com/color/111`    |
-| `/?q=rust traits` | Google, and it searches for `rust traits` |
-| `/rust traits`    | the same                                  |
-| `/?q=!b rust`     | Brave, and it searches for `rust`         |
-| `/?q=!repos`      | `https://github.com/repos`                |
 
-- Aliases are case-sensitive. `/GH` gives a 404.
-- A bang picks a different engine. It can be in any position. The worker uses the first one only.
+- The pathname takes precedence over the `q` parameter.
+- A bang selects a target. It can appear anywhere in the query. The worker uses only the first bang.
+- A bang without search terms opens the target homepage.
 - A target without its own search uses the default engine to search its host.
+- Keys are case-sensitive. An unknown bang remains part of the default search query.
+- An empty query returns a 404.
 
-To use it in your browser, add it as a search engine with this address:
-`https://go.example.com/%s`.
-To use in android launcher use `https://go.example.com/?q=%s`.
+To use the worker as a browser search engine, set its address to `https://go.example.com/%s`.
+For an Android launcher, use `https://go.example.com/?q=%s`.
 
 ## Configure
 
-Targets are grouped by host in `src/config.ts`. Each ID works as both a path alias and a search
-bang.
+Targets are grouped by host in `src/config.ts`. Each key selects its target after a bang.
 
 ```ts
 'github.com': [
-	{ keys: ['github', 'gh'], path: '/repos' },
+	{ keys: ['github', 'gh'] },
+	{ keys: ['repos', 'repo'], path: '/repos' },
 ],
 ```
 
@@ -47,8 +49,9 @@ encoded query.
 ],
 ```
 
-The worker uses HTTPS for every host. A target without `path` opens the host homepage. A search
-without `search` becomes a site search through the default engine.
+The worker uses HTTPS for every host. `path` sets the target homepage. When a target also has
+`search`, the path prefixes its search URL. Without `search`, the worker uses the default engine
+to search the target host.
 
 The build checks the configuration. A mistake stops the build and tells you the reason.
 
