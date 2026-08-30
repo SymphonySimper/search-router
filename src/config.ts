@@ -86,4 +86,8 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'squoosh.app': [{ keys: ['squoosh', 'sq', 'image-compress'] }],
 	'www.virustotal.com': [{ keys: ['virustotal', 'vt'] }],
 	'speed.cloudflare.com': [{ keys: ['speed', 'speedtest', 'ookla'] }],
+
+	//// AI
+	'chatgpt.com': [{ keys: ['chatgpt', 'gpt', 'ai'], search: `?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'gemini.google.com': [{ keys: ['gemini'] }],
 };
