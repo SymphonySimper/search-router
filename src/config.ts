@@ -88,6 +88,9 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'speed.cloudflare.com': [{ keys: ['speed', 'speedtest', 'ookla'] }],
 
 	//// AI
-	'chatgpt.com': [{ keys: ['chatgpt', 'gpt', 'ai'], search: `?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'chatgpt.com': [
+		{ keys: ['chatgpt', 'gpt', 'ai'], search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
+		{ keys: ['fg'], search: `?q=Fix%20grammar%20%60${SEARCH_TERMS_PLACEHOLDER}%60` },
+	],
 	'gemini.google.com': [{ keys: ['gemini', 'gi'] }],
 };
