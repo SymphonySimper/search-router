@@ -89,5 +89,5 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	//// AI
 	'chatgpt.com': [{ keys: ['chatgpt', 'gpt', 'ai'], search: `?q=${SEARCH_TERMS_PLACEHOLDER}` }],
-	'gemini.google.com': [{ keys: ['gemini'] }],
+	'gemini.google.com': [{ keys: ['gemini', 'gi'] }],
 };
