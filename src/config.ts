@@ -52,7 +52,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Search
 	'search.brave.com': [{ keys: ['b'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
-	'www.amazon.in': [{ keys: ['a'], search: `/s?k=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'www.amazon.in': [{ keys: ['an'], search: `/s?k=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'www.flipkart.com': [{ keys: ['f'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'developer.mozilla.org': [{ keys: ['mdn'] }],
 
