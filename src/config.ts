@@ -86,6 +86,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'squoosh.app': [{ keys: ['squoosh', 'sq', 'image-compress'] }],
 	'www.virustotal.com': [{ keys: ['virustotal', 'vt'] }],
 	'speed.cloudflare.com': [{ keys: ['speed', 'speedtest', 'ookla'] }],
+	'tenor.com': [{ keys: ['t', 'gif'], search: `/search/${SEARCH_TERMS_PLACEHOLDER}-gifs` }],
 
 	//// AI
 	'chatgpt.com': [
