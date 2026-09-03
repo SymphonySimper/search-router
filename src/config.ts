@@ -33,6 +33,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	// Dev / infrastructure
 	'porkbun.com': [{ keys: ['porkbun', 'pork', 'bun', 'domain'], search: `/checkout/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'dash.cloudflare.com': [{ keys: ['cloudflare', 'flare', 'cf'] }],
+	'console.cloud.google.com': [{ keys: ['console', 'gcp'] }],
 
 	// Dev / web
 	'fonts.google.com': [{ keys: ['google-fonts', 'gf'] }],
