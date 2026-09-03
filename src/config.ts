@@ -94,6 +94,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Productivity
 	'drive.google.com': [{ keys: ['google-drive', 'drive'] }],
+	'calendar.google.com': [{ keys: ['cal', 'calendar'] }],
 
 	// Entertainment
 	'www.youtube.com': [{ keys: ['youtube', 'yt'], search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}` }],
