@@ -41,6 +41,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'svelte.dev': [{ keys: ['svelte', 'sv'] }],
 	'svelte-changelog.dev': [{ keys: ['svelte-changelog', 'sv-log'] }],
 	'tailwindcss.com': [{ keys: ['tailwindcss', 'tailwind'], path: '/docs/installation' }],
+	'npmx.dev': [{ keys: ['npm'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 
 	// Dev / browser
 	'chromeenterprise.google': [{ keys: ['chrome-enterprise-policy-list'], path: '/policies' }],
