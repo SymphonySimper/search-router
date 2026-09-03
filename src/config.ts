@@ -34,6 +34,8 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'svelte.dev': [{ keys: ['svelte', 'sv'] }],
 	'svelte-changelog.dev': [{ keys: ['svelte-changelog', 'sv-log'] }],
 	'tailwindcss.com': [{ keys: ['tailwindcss', 'tailwind'], path: '/docs/installation' }],
+	'porkbun.com': [{ keys: ['porkbun', 'pork', 'bun', 'domain'], search: `/checkout/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'dash.cloudflare.com': [{ keys: ['cloudflare', 'flare', 'cf'] }],
 
 	// Google
 	'www.google.com': [
