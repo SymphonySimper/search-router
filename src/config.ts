@@ -71,6 +71,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'www.google.com': [
 		{ keys: ['default', 'g'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` },
 		{ keys: ['flip', 'coin'], path: '/search?q=google%20flip%20a%20coin' },
+		{ keys: ['map'], path: '/maps', search: `/search/${SEARCH_TERMS_PLACEHOLDER}` },
 	],
 	'search.brave.com': [{ keys: ['b'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 
