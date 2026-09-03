@@ -78,6 +78,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'discord.com': [{ keys: ['discord', 'dis'], path: '/channels/@me' }],
 	'www.reddit.com': [{ keys: ['reddit', 'rt'] }],
 	'web.whatsapp.com': [{ keys: ['whatsapp', 'wp'] }],
+	'app.element.io': [{ keys: ['element', 'matrix'] }],
 
 	// Utility
 	'excalidraw.com': [{ keys: ['excalidraw', 'ed', 'draw'] }],
