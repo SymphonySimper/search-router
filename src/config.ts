@@ -96,4 +96,14 @@ export const CONFIG: Record<string, Array<Target>> = {
 		{ keys: ['fg'], search: `?temporary-chat=true&q=Fix%20grammar%20%60${SEARCH_TERMS_PLACEHOLDER}%60` },
 	],
 	'gemini.google.com': [{ keys: ['gemini', 'gi'] }],
+
+	// .new (keys should start with 'c')
+	'doc.new': [{ keys: ['cdoc'] }], // Google Docs
+	'sheet.new': [{ keys: ['csheet'] }], // Google Sheets
+	'slide.new': [{ keys: ['cslide'] }], // Google Slides
+	'cal.new': [{ keys: ['ccal'] }], // Google Calendar
+	'meet.new': [{ keys: ['cmeet'] }], // Google Meet
+	'repo.new': [{ keys: ['crepo'] }], // Github
+	'gist.new': [{ keys: ['cgist'] }], // Github
+	'pen.new': [{ keys: ['cpen'] }], // CodePen
 };
