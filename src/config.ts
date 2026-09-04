@@ -37,7 +37,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Dev / web
 	'fonts.google.com': [{ keys: ['google-fonts', 'gf'] }],
-	'developer.mozilla.org': [{ keys: ['mdn'] }],
+	'developer.mozilla.org': [{ keys: ['mdn'] }, { keys: ['html', 'css', 'js'], path: '/en-US/play' }],
 	'svelte.dev': [{ keys: ['svelte', 'sv'] }],
 	'svelte-changelog.dev': [{ keys: ['svelte-changelog', 'sv-log'] }],
 	'tailwindcss.com': [{ keys: ['tailwindcss', 'tailwind'], path: '/docs/installation' }],
