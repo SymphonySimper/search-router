@@ -106,6 +106,11 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'www.youtube.com': [{ keys: ['youtube', 'yt'], search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'tenor.com': [{ keys: ['t', 'gif'], search: `/search/${SEARCH_TERMS_PLACEHOLDER}-gifs` }],
 
+	// Gaming
+	'store.steampowered.com': [{ keys: ['steam', 'sm'], search: `/search?term=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'steamdb.info': [{ keys: ['steamdb', 'sb'], search: `/search/?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'www.protondb.com': [{ keys: ['protondb', 'pb'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+
 	// Utilities
 	'excalidraw.com': [{ keys: ['excalidraw', 'ed', 'draw'] }],
 	'www.keybr.com': [{ keys: ['keybr'] }],
