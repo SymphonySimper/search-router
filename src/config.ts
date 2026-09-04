@@ -126,5 +126,4 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'meet.new': [{ keys: ['cmeet'] }], // Google Meet
 	'repo.new': [{ keys: ['crepo'] }], // Github
 	'gist.new': [{ keys: ['cgist'] }], // Github
-	'pen.new': [{ keys: ['cpen'] }], // CodePen
 };
