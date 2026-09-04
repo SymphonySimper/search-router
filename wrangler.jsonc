@@ -7,6 +7,14 @@
 	"name": "search-router",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-08-18",
+	"workers_dev": false,
+	"preview_urls": false,
+	"routes": [
+		{
+			"pattern": "p1a.in",
+			"custom_domain": true,
+		},
+	],
 	"build": {
 		"command": "pnpm config:compile",
 		"watch_dir": ["scripts/compile.ts", "src/config.ts"],
