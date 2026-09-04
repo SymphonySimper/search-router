@@ -5,6 +5,11 @@ export default {
 	fetch(request): Response {
 		const requestUrl = new URL(request.url);
 
+		if (requestUrl.protocol === 'http:') {
+			requestUrl.protocol = 'https:';
+			return Response.redirect(requestUrl.href, 301);
+		}
+
 		if (requestUrl.pathname === RESERVED_PATHNAMES.favicon) {
 			return new Response(null, {
 				status: 404,
