@@ -17,7 +17,7 @@ The examples use `go.example.com` as the address.
 | `/!c 111`         | `https://symphonysimper.com/color/111`    |
 
 - The pathname takes precedence over the `q` parameter.
-- A bang selects a target. It can appear anywhere in the query. The worker uses only the first bang.
+- A bang at the start of the query selects a target.
 - A bang without search terms opens the target homepage.
 - A target without its own search uses the default engine to search its host.
 - Keys are case-sensitive. An unknown bang remains part of the default search query.

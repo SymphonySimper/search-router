@@ -34,16 +34,14 @@ export function getUrlForRequest(url: URL): ResultType {
 		return null;
 	}
 
-	// Checking for '!' and then doing match is faster
-	const match = query.includes('!') ? query.match(SEARCH_BANG_REGEX) : null;
+	const match = query.startsWith('!') ? query.match(SEARCH_BANG_REGEX) : null;
 
 	let route: Route;
 
 	if (match && Object.hasOwn(ROUTES, match[1])) {
 		route = ROUTES[match[1]];
 
-		const start = match.index ?? 0;
-		query = (query.slice(0, start) + query.slice(start + match[0].length)).trim();
+		query = query.slice(match[0].length).trim();
 	} else {
 		route = DEFAULT_ROUTE;
 	}
