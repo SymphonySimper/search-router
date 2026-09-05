@@ -12,6 +12,6 @@ export const DEFAULT_HEADERS: HeadersInit = {
 };
 
 export const KEY_PATTERN = '[a-z0-9-]+';
-export const SEARCH_BANG_REGEX = new RegExp(`^!(${KEY_PATTERN})`);
+export const SEARCH_SHORTCUT_REGEX = new RegExp(`^\\.(${KEY_PATTERN})`);
 
 export const PROTOCOL = 'https://';

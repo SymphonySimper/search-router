@@ -1,6 +1,6 @@
 # Search Router
 
-A Cloudflare Worker that sends queries to configured search engines. A bang can also open a
+A Cloudflare Worker that sends queries to configured search engines. A shortcut can also open a
 configured target.
 
 ## Use
@@ -11,16 +11,16 @@ The examples use `go.example.com` as the address.
 | ----------------- | ----------------------------------------- |
 | `/rust traits`    | Google, and it searches for `rust traits` |
 | `/?q=rust traits` | the same                                  |
-| `/!b rust`        | Brave, and it searches for `rust`         |
-| `/!repos`         | `https://github.com/repos`                |
-| `/!repos actions` | Google, with a site search for GitHub     |
-| `/!c 111`         | `https://symphonysimper.com/color/111`    |
+| `/.b rust`        | Brave, and it searches for `rust`         |
+| `/.repos`         | `https://github.com/repos`                |
+| `/.repos actions` | Google, with a site search for GitHub     |
+| `/.c 111`         | `https://symphonysimper.com/color/111`    |
 
 - The pathname takes precedence over the `q` parameter.
-- A bang at the start of the query selects a target.
-- A bang without search terms opens the target homepage.
+- A shortcut starts with `.` and selects a target.
+- A shortcut without search terms opens the target homepage.
 - A target without its own search uses the default engine to search its host.
-- Keys are case-sensitive. An unknown bang remains part of the default search query.
+- Keys are case-sensitive. An unknown shortcut remains part of the default search query.
 - An empty query returns a 404.
 
 To use the worker as a browser search engine, set its address to `https://go.example.com/%s`.
@@ -28,7 +28,7 @@ For an Android launcher, use `https://go.example.com/?q=%s`.
 
 ## Configure
 
-Targets are grouped by host in `src/config.ts`. Each key selects its target after a bang.
+Targets are grouped by host in `src/config.ts`. Each key selects its target after `.`.
 
 ```ts
 'github.com': [

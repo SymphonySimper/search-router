@@ -1,4 +1,4 @@
-import { SEARCH_BANG_REGEX, SEARCH_QUERY_PARAM } from './constants.ts';
+import { SEARCH_QUERY_PARAM, SEARCH_SHORTCUT_REGEX } from './constants.ts';
 import { DEFAULT_ROUTE, PARTS, ROUTES } from './generated.ts';
 import type { DirectSearchRoute, Route } from './types.ts';
 
@@ -34,7 +34,7 @@ export function getUrlForRequest(url: URL): ResultType {
 		return null;
 	}
 
-	const match = query.startsWith('!') ? query.match(SEARCH_BANG_REGEX) : null;
+	const match = query.startsWith('.') ? query.match(SEARCH_SHORTCUT_REGEX) : null;
 
 	let route: Route;
 
