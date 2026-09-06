@@ -111,6 +111,11 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Productivity
 	'calendar.google.com': [{ keys: ['cal', 'calendar'] }],
+	'docs.google.com': [
+		{ keys: ['doc', 'docs'], path: '/document', search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
+		{ keys: ['slide', 'slides'], path: '/presentation', search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
+		{ keys: ['sheet', 'sheets'], path: '/spreadsheets', search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
+	],
 	'drive.google.com': [{ keys: ['google-drive', 'drive'] }],
 	'www.figma.com': [{ keys: ['figma'] }],
 
