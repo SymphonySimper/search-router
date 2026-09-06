@@ -10,11 +10,11 @@ type Target = {
 export const CONFIG: Record<string, Array<Target>> = {
 	// AI
 	'chatgpt.com': [
-		{ keys: ['chatgpt', 'gpt', 'a'], search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
+		{ keys: ['gpt', 'a'], search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
 		{ keys: ['at'], search: `?temporary-chat=true&q=${SEARCH_TERMS_PLACEHOLDER}` },
 		{ keys: ['fg'], search: `?temporary-chat=true&q=Fix%20grammar%20%60${SEARCH_TERMS_PLACEHOLDER}%60` },
 	],
-	'gemini.google.com': [{ keys: ['gemini', 'gi'] }],
+	'gemini.google.com': [{ keys: ['gi'] }],
 
 	// Bills
 	'login.airfiber.co.in': [{ keys: ['airfiber', 'afr'], path: '/customer_portal' }],
@@ -23,15 +23,15 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'app.element.io': [{ keys: ['element', 'matrix'] }],
 	'discord.com': [{ keys: ['discord', 'dis'], path: '/channels/@me' }],
 	'mail.google.com': [
-		{ keys: ['gmail', 'gm'], path: '/mail/u/0' },
-		{ keys: ['gmail-1', 'gm1'], path: '/mail/u/1' },
-		{ keys: ['gmail-2', 'gm2'], path: '/mail/u/2' },
+		{ keys: ['gm'], path: '/mail/u/0' },
+		{ keys: ['gm1'], path: '/mail/u/1' },
+		{ keys: ['gm2'], path: '/mail/u/2' },
 	],
-	'meet.google.com': [{ keys: ['google-meet', 'meet'] }],
-	'web.whatsapp.com': [{ keys: ['whatsapp', 'wp'] }],
+	'meet.google.com': [{ keys: ['gmeet', 'meet'] }],
+	'web.whatsapp.com': [{ keys: ['wp'] }],
 
 	// Dev / browser
-	'chromeenterprise.google': [{ keys: ['chrome-enterprise-policy-list'], path: '/policies' }],
+	'chromeenterprise.google': [{ keys: ['chrome-policy'], path: '/policies' }],
 
 	// Dev / infrastructure
 	'console.cloud.google.com': [{ keys: ['console', 'gcp'] }],
@@ -39,8 +39,8 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'porkbun.com': [{ keys: ['porkbun', 'pork', 'bun', 'domain'], search: `/checkout/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 
 	// Dev / learning
-	'courses.joshwcomeau.com': [{ keys: ['joshw-courses', 'josh'] }],
-	'leetcode.com': [{ keys: ['leetcode', 'lt'] }],
+	'courses.joshwcomeau.com': [{ keys: ['josh'] }],
+	'leetcode.com': [{ keys: ['leet', 'lt'] }],
 
 	// Dev / Nix
 	'nix.dev': [{ keys: ['nix-builtins', 'nb'], path: '/manual/nix/latest/language/builtins.html' }],
@@ -64,7 +64,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'github.com': [
 		{ keys: ['github', 'gh'] },
 		{ keys: ['repos', 'repo'], path: '/repos' },
-		{ keys: ['dotfiles', 'dots', 'nix-config'], path: '/SymphonySimper/.dotfiles' },
+		{ keys: ['dots'], path: '/SymphonySimper/.dotfiles' },
 	],
 	'regex101.com': [{ keys: ['regex101', 're101'] }],
 
@@ -74,19 +74,19 @@ export const CONFIG: Record<string, Array<Target>> = {
 		{ keys: ['html', 'css', 'js'], path: '/en-US/play' },
 		{ keys: ['mdn-scan', 'observatory'], path: '/en-US/observatory' },
 	],
-	'fonts.google.com': [{ keys: ['google-fonts', 'gf'] }],
+	'fonts.google.com': [{ keys: ['gfonts', 'fonts'] }, { keys: ['gicons'], path: '/icons' }],
 	'npmx.dev': [{ keys: ['npm'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
-	'svelte-changelog.dev': [{ keys: ['svelte-changelog', 'sv-log'] }],
+	'svelte-changelog.dev': [{ keys: ['sv-log'] }],
 	'svelte.dev': [{ keys: ['svelte', 'sv'] }],
-	'tailwindcss.com': [{ keys: ['tailwindcss', 'tailwind'], path: '/docs/installation' }],
+	'tailwindcss.com': [{ keys: ['tailwind'], path: '/docs/installation' }],
 
 	// Entertainment
 	'tenor.com': [{ keys: ['t', 'gif'], search: `/search/${SEARCH_TERMS_PLACEHOLDER}-gifs` }],
-	'www.youtube.com': [{ keys: ['youtube', 'yt'], search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'www.youtube.com': [{ keys: ['yt'], search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}` }],
 
 	// Finance
-	'passbook.epfindia.gov.in': [{ keys: ['epfo-passbook', 'pf-book'], path: '/MemberPassBook/login' }],
-	'pli.indiapost.gov.in': [{ keys: ['indian-post-insurance', 'pli'] }],
+	'passbook.epfindia.gov.in': [{ keys: ['pfbook'], path: '/MemberPassBook/login' }],
+	'pli.indiapost.gov.in': [{ keys: ['pli'] }],
 	'unifiedportal-mem.epfindia.gov.in': [{ keys: ['epfo', 'pf'], path: '/memberinterface' }],
 
 	// Gaming
@@ -116,7 +116,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 		{ keys: ['slide', 'slides'], path: '/presentation', search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
 		{ keys: ['sheet', 'sheets'], path: '/spreadsheets', search: `?q=${SEARCH_TERMS_PLACEHOLDER}` },
 	],
-	'drive.google.com': [{ keys: ['google-drive', 'drive'] }],
+	'drive.google.com': [{ keys: ['gdrive', 'drive'] }],
 	'www.figma.com': [{ keys: ['figma'] }],
 
 	// Search engines
@@ -129,16 +129,16 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Shopping
 	'www.amazon.in': [{ keys: ['an'], search: `/s?k=${SEARCH_TERMS_PLACEHOLDER}` }],
-	'www.flipkart.com': [{ keys: ['f'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'www.flipkart.com': [{ keys: ['ft'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 
 	// Social
 	'www.reddit.com': [{ keys: ['reddit', 'rt'] }],
 
 	// Utilities
-	'excalidraw.com': [{ keys: ['excalidraw', 'ed', 'draw'] }],
-	'monkeytype.com': [{ keys: ['monkeytype', 'mt'] }],
-	'speed.cloudflare.com': [{ keys: ['speed', 'speedtest', 'ookla'] }],
-	'squoosh.app': [{ keys: ['squoosh', 'sq', 'image-compress'] }],
+	'excalidraw.com': [{ keys: ['draw'] }],
+	'monkeytype.com': [{ keys: ['monkey'] }],
+	'speed.cloudflare.com': [{ keys: ['speed'] }],
+	'squoosh.app': [{ keys: ['squoosh', 'sq'] }],
 	'www.keybr.com': [{ keys: ['keybr'] }],
 	'www.virustotal.com': [{ keys: ['virustotal', 'vt'] }],
 };
