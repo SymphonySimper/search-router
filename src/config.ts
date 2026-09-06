@@ -75,6 +75,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 		{ keys: ['mdn-scan', 'observatory'], path: '/en-US/observatory' },
 	],
 	'fonts.google.com': [{ keys: ['gfonts', 'fonts'] }, { keys: ['gicons'], path: '/icons' }],
+	'icon-sets.iconify.design': [{ keys: ['iconify', 'icon'] }],
 	'npmx.dev': [{ keys: ['npm'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'svelte-changelog.dev': [{ keys: ['sv-log'] }],
 	'svelte.dev': [{ keys: ['svelte', 'sv'] }],
