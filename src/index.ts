@@ -5,7 +5,7 @@ export default {
 	fetch(request): Response {
 		const requestUrl = new URL(request.url);
 
-		if (requestUrl.protocol === 'http:') {
+		if (requestUrl.protocol === 'http:' && requestUrl.hostname !== 'localhost') {
 			requestUrl.protocol = 'https:';
 			return Response.redirect(requestUrl.href, 301);
 		}
