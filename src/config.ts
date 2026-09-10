@@ -82,6 +82,8 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'tailwindcss.com': [{ keys: ['tailwind'], path: '/docs/installation' }],
 
 	// Entertainment
+	'www.crunchyroll.com': [{ keys: ['crunchyroll', 'crunchy'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
+	'www.netflix.com': [{ keys: ['netflix', 'flix'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'tenor.com': [{ keys: ['t', 'gif'], search: `/search/${SEARCH_TERMS_PLACEHOLDER}-gifs` }],
 	'www.youtube.com': [{ keys: ['yt'], search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}` }],
 
