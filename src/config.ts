@@ -44,7 +44,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Dev / Nix
 	'nix.dev': [{ keys: ['nix-builtins', 'nb'], path: '/manual/nix/latest/language/builtins.html' }],
-	'nixpkgs-tracker.ocfox.me': [{ keys: ['nix-pr-tracker', 'npt'] }],
+	'nixpkgs-tracker.ocfox.me': [{ keys: ['nix-pr-tracker', 'npt'], search: `?pr=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'noogle.dev': [{ keys: ['noogle', 'ng'], search: `/q?term=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'search.nixos.org': [
 		{
