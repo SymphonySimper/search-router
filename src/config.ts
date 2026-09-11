@@ -85,10 +85,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'www.crunchyroll.com': [{ keys: ['crunchyroll', 'crunchy'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'myanimelist.net': [
 		{ keys: ['mal'], search: `/anime.php?q=${SEARCH_TERMS_PLACEHOLDER}&cat=anime` },
-		{
-			keys: ['mymal'],
-			path: '/profile/SymphonySimper',
-		},
+		{ keys: ['mymal'], path: '/animelist/SymphonySimper' },
 	],
 	'www.netflix.com': [{ keys: ['netflix', 'flix'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'tenor.com': [{ keys: ['t', 'gif'], search: `/search/${SEARCH_TERMS_PLACEHOLDER}-gifs` }],
