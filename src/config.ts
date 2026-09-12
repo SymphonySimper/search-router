@@ -82,10 +82,6 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'tailwindcss.com': [{ keys: ['tailwind'], path: '/docs/installation' }],
 
 	// Entertainment
-	'myanimelist.net': [
-		{ keys: ['mal'], search: `/anime.php?q=${SEARCH_TERMS_PLACEHOLDER}&cat=anime` },
-		{ keys: ['mymal'], path: '/animelist/SymphonySimper' },
-	],
 	'www.netflix.com': [{ keys: ['netflix', 'flix'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'tenor.com': [{ keys: ['t', 'gif'], search: `/search/${SEARCH_TERMS_PLACEHOLDER}-gifs` }],
 	'www.youtube.com': [{ keys: ['yt'], search: `/results?search_query=${SEARCH_TERMS_PLACEHOLDER}` }],
