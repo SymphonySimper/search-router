@@ -82,7 +82,6 @@ export const CONFIG: Record<string, Array<Target>> = {
 	'tailwindcss.com': [{ keys: ['tailwind'], path: '/docs/installation' }],
 
 	// Entertainment
-	'www.crunchyroll.com': [{ keys: ['crunchyroll', 'crunchy'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 	'myanimelist.net': [
 		{ keys: ['mal'], search: `/anime.php?q=${SEARCH_TERMS_PLACEHOLDER}&cat=anime` },
 		{ keys: ['mymal'], path: '/animelist/SymphonySimper' },
