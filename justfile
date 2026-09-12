@@ -2,7 +2,7 @@ init: && cf-typegen
     pnpm install
 
 deploy:
-    pnpm run deploy
+    git push origin main:release/prod
 
 dev:
     pnpm run dev
