@@ -63,7 +63,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 	// Dev / tools
 	'github.com': [
 		{ keys: ['github', 'gh'] },
-		{ keys: ['repos', 'repo'], path: '/repos' },
+		{ keys: ['repos', 'repo'], path: '/repos?q=contributed-by%3A%40me', search: `+${SEARCH_TERMS_PLACEHOLDER}` },
 		{ keys: ['dots'], path: '/SymphonySimper/.dotfiles' },
 	],
 	'regex101.com': [{ keys: ['regex101', 're101'] }],
