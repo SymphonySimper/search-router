@@ -135,6 +135,7 @@ export const CONFIG: Record<string, Array<Target>> = {
 
 	// Social
 	'www.reddit.com': [{ keys: ['reddit', 'rt'] }],
+	'x.com': [{ keys: ['x', 'twitter'], search: `/search?q=${SEARCH_TERMS_PLACEHOLDER}` }],
 
 	// Utilities
 	'excalidraw.com': [{ keys: ['draw'] }],
